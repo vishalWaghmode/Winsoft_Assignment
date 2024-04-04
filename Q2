@@ -1,0 +1,63 @@
+import java.util.Scanner;
+
+public class MaxSumPath {
+    public static int maxSumPath(int[] X, int[] Y) {
+        int xlen = X.length;
+        int ylen = Y.length;
+        int i = 0, j = 0;
+        int sumofX = 0, sumofY = 0;
+        int maxSum = 0;
+
+        while (i < xlen && j < ylen) {
+            if (X[i] < Y[j]) {
+                sumofX += X[i];
+                i++;
+            } else if (X[i] > Y[j]) {
+                sumofY += Y[j];
+                j++;
+            } else {  // common element found
+                maxSum += Math.max(sumofX, sumofY) + X[i];
+                sumofX = 0;
+                sumofY = 0;
+                i++;
+                j++;
+            }
+        }
+
+        // Add remaining elements from X and Y
+        while (i < xlen) {
+            sumofX += X[i];
+            i++;
+        }
+        while (j < ylen) {
+            sumofY += Y[j];
+            j++;
+        }
+
+        maxSum += Math.max(sumofX, sumofY);
+        return maxSum;
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Input size of arrays
+        int xlen = scanner.nextInt();
+        int ylen = scanner.nextInt();
+
+        // Input elements of first array
+        int[] X = new int[xlen];
+        for (int i = 0; i < xlen; i++) {
+            X[i] = scanner.nextInt();
+        }
+
+        // Input elements of second array
+        int[] Y = new int[ylen];
+        for (int i = 0; i < ylen; i++) {
+            Y[i] = scanner.nextInt();
+        }
+
+        // Calculate and print maximum sum path
+        System.out.println(maxSumPath(X, Y));
+    }
+}
