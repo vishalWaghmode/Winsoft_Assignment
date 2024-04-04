@@ -1,0 +1,67 @@
+import java.util.Scanner;
+
+public class Main {
+    public static int[] mergeArrays(int[] X, int[] Y) {
+        int xlen = X.length;
+        int ylen = Y.length;
+
+        int count = 0;
+        for (int i = 0; i < xlen; i++) {
+            if (X[i] == 0)
+                count++;
+        }
+
+        int k = xlen - 1;
+        for (int i = xlen - 1; i >= 0; i--) {
+            if (X[i] != 0) {
+                X[k--] = X[i];
+            }
+        }
+
+        int i = k + 1;
+        int j = 0;
+        k = 0;
+
+        while (i < xlen && j < ylen) {
+            if (X[i] < Y[j])
+                X[k++] = X[i++];
+            else
+                X[k++] = Y[j++];
+        }
+
+        while (j < ylen)
+            X[k++] = Y[j++];
+           
+        return X;    
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Input size of arrays
+        int xlen = scanner.nextInt();
+        int ylen = scanner.nextInt();
+
+        // Input elements of first array
+       
+        int[] X = new int[xlen ]; // Assuming enough space for both arrays
+   
+        for (int i = 0; i < xlen; i++) {
+            X[i] = scanner.nextInt();
+        }
+
+        // Input elements of second array
+        int[] Y = new int[ylen];
+        for (int i = 0; i < ylen; i++) {
+            Y[i] = scanner.nextInt();
+        }
+
+        // Merge arrays
+        int[] res=mergeArrays(X, Y);
+        for(int i=0; i<res.length; i++){
+            System.out.println(res[i]);
+        }
+
+        // No print statements here
+    }
+}
