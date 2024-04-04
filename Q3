@@ -1,0 +1,36 @@
+import java.util.HashMap;
+import java.util.Scanner;
+
+public class WordCount {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter a string: ");
+        String userInput = scanner.nextLine();
+       
+        HashMap<String, Integer> wordCountMap = new HashMap<>();
+       
+        // Split the user input string into words
+        String[] words = userInput.split("\\s+");
+       
+        // Count the occurrence of each word
+        for (String w : words) {
+            // Remove any punctuation marks if necessary
+            w = w.replaceAll("[^a-zA-Z]", "").toLowerCase();
+           
+            if (w.length() > 0) {
+                if (wordCountMap.containsKey(w)) {
+                    wordCountMap.put(w, wordCountMap.get(w) + 1);
+                } else {
+                    wordCountMap.put(w, 1);
+                }
+            }
+        }
+       
+        // Display the word count
+        System.out.println("Word count:");
+        for (String w : wordCountMap.keySet()) {
+            System.out.println(w + ": " + wordCountMap.get(w));
+        }
+       
+    }
+}
